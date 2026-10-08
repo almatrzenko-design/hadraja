@@ -8,6 +8,91 @@
     
 </head>
 <body>
-    
+<main class="pantalla">
+
+    <a href="index.html" class="volver">← Volver</a>
+
+    <h1 class="pantalla-titulo">Crear cuenta</h1>
+    <p class="pantalla-bajada">Sumate a la comunidad de madrijim.</p>
+
+    <p id="error-registro" class="error-login"></p>
+
+    <form class="formulario" id="form-registro" novalidate>
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Tu nombre">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="tunombre@gmail.com">
+        <p class="texto-ayuda">Gmail, Yahoo, Hotmail, Outlook o iCloud.</p>
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" placeholder="Mínimo 8 caracteres">
+
+        <label for="repetir">Repetí la contraseña</label>
+        <input type="password" id="repetir" placeholder="La misma de arriba">
+        <p class="texto-ayuda">Es una demo: no uses tu contraseña de verdad.</p>
+
+        <p class="terminos">Al registrarte aceptás los términos y condiciones de Hadrajá.</p>
+
+        <button type="submit" class="boton boton-principal">Siguiente</button>
+
+    </form>
+
+    <p class="cambiar-cuenta">¿Ya tenés cuenta? <a href="iniciar-sesion.html">Iniciá sesión</a></p>
+
+</main>
+
+<script>
+    // Los mails que aceptamos
+    const DOMINIOS = [
+        'gmail.com', 'yahoo.com', 'yahoo.com.ar', 'hotmail.com', 'hotmail.com.ar',
+        'outlook.com', 'outlook.com.ar', 'live.com', 'icloud.com', 'me.com'
+    ];
+
+    const formRegistro = document.getElementById('form-registro');
+    const cartelError = document.getElementById('error-registro');
+
+    formRegistro.addEventListener('submit', function (evento) {
+        // Frenamos el formulario hasta revisar que esté todo bien
+        evento.preventDefault();
+
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const contrasena = document.getElementById('contrasena').value;
+        const repetir = document.getElementById('repetir').value;
+        const cuentas = JSON.parse(localStorage.getItem('cuentas')) || [];
+
+        // Revisamos de a una cosa. La primera que esté mal es el error.
+        let error = '';
+        if (nombre.length < 2) {
+            error = 'Escribí tu nombre.';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            error = 'Ese mail no tiene el formato correcto. Ej: nombre@gmail.com';
+        } else if (!DOMINIOS.includes(email.split('@')[1])) {
+            error = 'Usá un mail de Gmail, Yahoo, Hotmail, Outlook o iCloud.';
+        } else if (contrasena.length < 8) {
+            error = 'La contraseña tiene que tener al menos 8 caracteres.';
+        } else if (contrasena !== repetir) {
+            error = 'Las contraseñas no coinciden.';
+        } else if (cuentas.some(function (c) { return c.email === email; })) {
+            error = 'Ya hay una cuenta con ese mail. Iniciá sesión.';
+        }
+
+        if (error !== '') {
+            cartelError.textContent = error;
+            cartelError.style.display = 'block';
+            return;
+        }
+
+        // Todo bien: guardamos la cuenta e iniciamos sesión
+        cuentas.push({ nombre: nombre, email: email, contrasena: contrasena });
+        localStorage.setItem('cuentas', JSON.stringify(cuentas));
+        localStorage.setItem('nombre', nombre);
+        localStorage.setItem('sesion', email);
+
+        location.href = 'grupo.html';
+    });
+</script>
 </body>
 </html>

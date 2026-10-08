@@ -8,6 +8,91 @@
     
 </head>
 <body>
-    
+<main class="pantalla con-barra">
+
+    <a href="explorar.html" class="volver">← Explorar</a>
+
+    <h1 class="pantalla-titulo">Recursos</h1>
+    <p class="pantalla-bajada">Canciones, imprimibles y materiales listos para usar.</p>
+
+    <nav class="chips chips-recursos">
+        <a href="#" class="chip activo">Todos</a>
+        <a href="#" class="chip">Individuales</a>
+        <a href="#" class="chip">Para todos</a>
+        <a href="#" class="chip">Canciones</a>
+        <a href="#" class="chip">Imprimibles</a>
+        <a href="#" class="chip">Para días de lluvia</a>
+        <a href="#" class="chip">Para majané</a>
+    </nav>
+
+    <div id="publicaciones-nuevas"></div>
+
+    <article class="tarjeta">
+        <div class="tarjeta-autor">
+            <span class="avatar">NS</span>
+            <div>
+                <p class="autor-nombre">Noa Schwartz</p>
+                <p class="autor-movimiento">Kvutzá Tamar</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-recursos">Canciones</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Cancionero de fogón</a></h2>
+        <p class="tarjeta-texto">Las letras de las canciones más cantadas en los majanot, con los acordes para guitarra.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 40</span>
+            <span>💬 9</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta">
+        <div class="tarjeta-autor">
+            <span class="avatar avatar-azul">IK</span>
+            <div>
+                <p class="autor-nombre">Iael Katz</p>
+                <p class="autor-movimiento">Kvutzá Erez</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-recursos">Imprimibles</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Bingo de valores</a></h2>
+        <p class="tarjeta-texto">Cartones para imprimir con valores del movimiento. Ideal para cerrar una peulá.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 27</span>
+            <span>💬 4</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+</main>
+
+<nav class="barra-abajo">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item activo">
+        <span class="barra-icono">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item">
+        <span class="barra-icono">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script src="js/publicaciones.js"></script>
+<script>
+    mostrarPublicaciones('recursos');
+</script>
+<script src="js/guardar.js"></script>
+<script src="js/megusta.js"></script>   
 </body>
 </html>

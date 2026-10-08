@@ -8,6 +8,96 @@
     
 </head>
 <body>
-    
+<main class="pantalla con-barra">
+
+    <a href="explorar.html" class="volver">← Explorar</a>
+
+    <h1 class="pantalla-titulo">Hilos conductores</h1>
+    <p class="pantalla-bajada">Programas completos con un tema que une todas las actividades.</p>
+
+    <nav class="chips chips-hilos">
+        <a href="#" class="chip activo">Todos</a>
+        <a href="#" class="chip">Majané</a>
+        <a href="#" class="chip">Peulá</a>
+        <a href="#" class="chip">Proyecto</a>
+    </nav>
+
+    <div id="publicaciones-nuevas"></div>
+
+    <article class="tarjeta">
+        <span class="etiqueta etiqueta-hilos">Majané</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Majané de Pesaj</a></h2>
+        <p class="tarjeta-texto">Tres días sobre la libertad, con actividades para cada momento.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 51</span>
+            <span>💬 12</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta">
+        <span class="etiqueta etiqueta-hilos">Proyecto</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Proyecto Tikún Olam</a></h2>
+        <p class="tarjeta-texto">Un proyecto de varias semanas para hacer algo concreto por la comunidad.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 38</span>
+            <span>💬 7</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta">
+        <span class="etiqueta etiqueta-hilos">Peulá</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Peulá identidad judía</a></h2>
+        <p class="tarjeta-texto">Una peulá para pensar qué significa para cada uno ser parte del pueblo judío.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 29</span>
+            <span>💬 6</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta">
+        <span class="etiqueta etiqueta-hilos">Majané</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Majané verano</a></h2>
+        <p class="tarjeta-texto">Programa para el majané de verano, con juegos al aire libre y fogón.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 44</span>
+            <span>💬 10</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+</main>
+
+<nav class="barra-abajo">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item activo">
+        <span class="barra-icono">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item">
+        <span class="barra-icono">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script src="js/publicaciones.js"></script>
+<script>
+    mostrarPublicaciones('hilos');
+</script>
+<script src="js/guardar.js"></script>
+<script src="js/megusta.js"></script>
 </body>
 </html>

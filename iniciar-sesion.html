@@ -8,6 +8,70 @@
     
 </head>
 <body>
-    
+<main class="pantalla">
+
+    <a href="index.html" class="volver">← Volver</a>
+
+    <h1 class="pantalla-titulo">Iniciar sesión</h1>
+    <p class="pantalla-bajada">¡Qué bueno verte de nuevo!</p>
+
+    <p id="error-login" class="error-login"></p>
+
+    <form class="formulario" id="form-login" novalidate>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="tunombre@gmail.com">
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" placeholder="Tu contraseña">
+
+        <button type="submit" class="boton boton-principal">Entrar</button>
+
+    </form>
+
+    <p class="texto-ayuda">Cuenta de prueba: <strong>miri@gmail.com</strong> · contraseña <strong>hadraja123</strong></p>
+
+    <p class="cambiar-cuenta">¿No tenés cuenta? <a href="registro.html">Registrate</a></p>
+
+</main>
+
+<script>
+    const formLogin = document.getElementById('form-login');
+    const cartelError = document.getElementById('error-login');
+
+    formLogin.addEventListener('submit', function (evento) {
+        evento.preventDefault();
+
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const contrasena = document.getElementById('contrasena').value;
+
+        // Las cuentas registradas + la de prueba
+        const cuentas = JSON.parse(localStorage.getItem('cuentas')) || [];
+        cuentas.push({ nombre: 'Miri', email: 'miri@gmail.com', contrasena: 'hadraja123' });
+
+        const cuenta = cuentas.find(function (c) { return c.email === email; });
+
+        let error = '';
+        if (email === '' || contrasena === '') {
+            error = 'Completá tu mail y tu contraseña.';
+        } else if (!cuenta) {
+            error = 'No hay ninguna cuenta con ese mail. Si sos nueva/o, registrate.';
+        } else if (cuenta.contrasena !== contrasena) {
+            error = 'La contraseña no es correcta.';
+        }
+
+        if (error !== '') {
+            cartelError.textContent = error;
+            cartelError.style.display = 'block';
+            return;
+        }
+
+        // Entró: anotamos el nombre de la cuenta y la sesión
+        localStorage.setItem('nombre', cuenta.nombre);
+        localStorage.setItem('sesion', cuenta.email);
+
+        location.href = 'feed.html';
+    });
+</script>  
 </body>
 </html>

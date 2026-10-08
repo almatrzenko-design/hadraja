@@ -8,6 +8,90 @@
     
 </head>
 <body>
-    
+<main class="pantalla con-barra">
+
+    <a href="explorar.html" class="volver">← Explorar</a>
+
+    <h1 class="pantalla-titulo">Dinámicas</h1>
+    <p class="pantalla-bajada">Actividades para trabajar en grupo o en parejas.</p>
+
+    <nav class="chips chips-dinamicas">
+        <a href="#" class="chip activo">Todas</a>
+        <a href="#" class="chip">Para majané</a>
+        <a href="#" class="chip">Para peulá</a>
+        <a href="#" class="chip">Grupales</a>
+        <a href="#" class="chip">En parejas</a>
+        <a href="#" class="chip">Para días de lluvia</a>
+    </nav>
+
+    <div id="publicaciones-nuevas"></div>
+
+    <article class="tarjeta">
+        <div class="tarjeta-autor">
+            <span class="avatar">MG</span>
+            <div>
+                <p class="autor-nombre">Maia Goldberg</p>
+                <p class="autor-movimiento">Kvutzá Arazim</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-dinamicas">Grupales</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">La telaraña</a></h2>
+        <p class="tarjeta-texto">En ronda, cada uno dice algo de sí y le pasa el ovillo a otro. Al final queda una red que une a todo el grupo.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 35</span>
+            <span>💬 6</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta">
+        <div class="tarjeta-autor">
+            <span class="avatar avatar-azul">JR</span>
+            <div>
+                <p class="autor-nombre">Joni Rosen</p>
+                <p class="autor-movimiento">Kvutzá Tamar</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-dinamicas">En parejas</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html">Entrevista cruzada</a></h2>
+        <p class="tarjeta-texto">En parejas se hacen preguntas y después cada uno presenta al otro frente al grupo.</p>
+        <div class="tarjeta-acciones">
+            <span>♡ 22</span>
+            <span>💬 4</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+</main>
+
+<nav class="barra-abajo">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item activo">
+        <span class="barra-icono">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item">
+        <span class="barra-icono">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script src="js/publicaciones.js"></script>
+<script>
+    mostrarPublicaciones('dinamicas');
+</script>
+<script src="js/guardar.js"></script>
+<script src="js/megusta.js"></script>
 </body>
 </html>

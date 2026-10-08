@@ -36,3 +36,795 @@ body {
   background-color: var(--fondo);
   color: var(--texto);
 }
+
+/* ===== AJUSTE GENERAL ===== */
+/* Saca los márgenes que el navegador pone solo */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== PANTALLA SPLASH (index.html) ===== */
+
+/* La caja principal: todo centrado, uno abajo del otro */
+.splash {
+  min-height: 100vh;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+/* El logo: 4 piezas en una grilla de 2 x 2 */
+.logo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+/* Lo que comparten las 4 piezas: tamaño y bordes redondeados */
+.pieza {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+}
+
+/* El color de cada pieza */
+.pieza-azul { background-color: var(--azul-marino); }
+.pieza-naranja { background-color: var(--naranja); }
+.pieza-verde { background-color: var(--verde); }
+.pieza-rosa { background-color: var(--rosa); }
+
+/* Título y subtítulo */
+.splash-titulo {
+  font-size: var(--titulo-1);
+  font-weight: 800;
+  color: var(--azul-marino);
+}
+
+.splash-subtitulo {
+  color: #6B7280;
+  margin-bottom: 2rem;
+}
+
+/* Lo que comparten los dos botones */
+.boton {
+  display: block;
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 999px;
+  font-size: var(--texto-base);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Botón principal: relleno azul, letra blanca */
+.boton-principal {
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+}
+
+/* Botón secundario: fondo blanco, borde azul */
+.boton-secundario {
+  background-color: var(--blanco);
+  color: var(--azul-marino);
+  border: 2px solid var(--azul-marino);
+  text-align: center;}
+
+  /* Para que los <button> se vean igual que los links-botón */
+button.boton {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ===== PANTALLAS INTERNAS (registro, login, grupo...) ===== */
+
+.pantalla {
+  min-height: 100vh;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.volver {
+  display: inline-block;
+  color: var(--azul-marino);
+  text-decoration: none;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.pantalla-titulo {
+  font-size: var(--titulo-2);
+  font-weight: 800;
+  color: var(--azul-marino);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== FORMULARIOS ===== */
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formulario label {
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.formulario input,
+.formulario select  {
+  padding: 0.875rem 1rem;
+  border: 1px solid #D5DAE5;
+  border-radius: 0.75rem;
+  background-color: var(--blanco);
+  font-family: inherit;
+  font-size: var(--texto-base);
+}
+
+/* Cuando hacés clic en un casillero, el borde se pone azul */
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus  {
+  outline: none;
+  border-color: var(--azul);
+}
+
+.terminos {
+  font-size: var(--texto-chico);
+  color: #6B7280;
+  margin: 1rem 0;
+}
+
+/* Textito explicativo debajo del título */
+.pantalla-bajada {
+  color: #6B7280;
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Separa el botón de los casilleros */
+.formulario button {
+  margin-top: 1.5rem;
+}
+
+/* ===== CHIPS DE SUBCATEGORÍAS ===== */
+
+/* La fila de chips: se desliza de costado si no entra */
+.chips {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chip {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #D5DAE5;
+  background-color: var(--blanco);
+  color: var(--azul-marino);
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* El chip elegido: verde, el color de Juegos */
+.chip.activo {
+  background-color: var(--verde);
+  border-color: var(--verde);
+  color: var(--blanco);
+}
+
+/* ===== FEED ===== */
+
+.pestanias {
+  display: flex;
+  background-color: var(--blanco);
+  padding: 0.25rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+
+.pestania {
+  flex: 1;
+  text-align: center;
+  padding: 0.625rem;
+  border-radius: 999px;
+  color: #6B7280;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pestania.activa {
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+}
+
+/* ===== TARJETAS DE IDEAS ===== */
+
+.tarjeta {
+  background-color: var(--blanco);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(26, 58, 143, 0.08);
+}
+
+.tarjeta-autor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--naranja);
+  color: var(--blanco);
+  font-size: var(--texto-chico);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-azul { background-color: var(--azul); }
+
+.autor-nombre { font-weight: 700; }
+
+.autor-movimiento {
+  font-size: var(--texto-chico);
+  color: #6B7280;
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blanco);
+  margin-bottom: 0.5rem;
+}
+
+.etiqueta-juegos { background-color: var(--verde); }
+.etiqueta-hilos { background-color: var(--rosa); }
+
+.tarjeta-titulo {
+  font-size: var(--texto-mediano);
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.tarjeta-titulo a {
+  color: var(--azul-marino);
+  text-decoration: none;
+}
+
+.tarjeta-texto {
+  color: #4B5563;
+  margin-bottom: 1rem;
+}
+
+.tarjeta-acciones {
+  display: flex;
+  gap: 1.25rem;
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  color: #6B7280;
+}
+
+/* ===== EXPLORAR ===== */
+
+/* Barra de búsqueda */
+.buscador {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid #D5DAE5;
+  border-radius: 999px;
+  background-color: var(--blanco);
+  font-family: inherit;
+  font-size: var(--texto-base);
+  margin-bottom: 1.5rem;
+}
+
+.buscador:focus {
+  outline: none;
+  border-color: var(--azul);
+}
+
+/* Las 4 categorías en una grilla de 2 x 2 */
+.categorias {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Lo que comparten las 4 tarjetas de categoría */
+.categoria {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 8rem;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  color: var(--blanco);
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(26, 58, 143, 0.12);
+}
+
+.categoria-icono { font-size: 2rem; }
+
+.categoria-nombre {
+  font-size: var(--texto-mediano);
+  font-weight: 800;
+}
+
+/* El color de cada categoría */
+.categoria-juegos { background-color: var(--verde); }
+.categoria-recursos { background-color: var(--naranja); }
+.categoria-dinamicas { background-color: var(--azul); }
+.categoria-hilos { background-color: var(--rosa); }
+
+/* ===== BARRA DE NAVEGACIÓN DE ABAJO ===== */
+
+/* Deja espacio abajo para que la barra no tape el contenido */
+.con-barra {
+  padding-bottom: 6rem;
+}
+
+.barra-abajo {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0.5rem 0 0.75rem;
+  background-color: var(--blanco);
+  border-radius: 1.25rem 1.25rem 0 0;
+  box-shadow: 0 -4px 12px rgba(26, 58, 143, 0.08);
+}
+
+/* Cada botón: ícono arriba, texto abajo */
+.barra-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6B7280;
+  text-decoration: none;
+}
+
+.barra-icono { font-size: 1.25rem; }
+
+/* El botón de la pantalla donde estás */
+.barra-item.activo { color: var(--azul-marino); }
+
+/* Publicar: círculo naranja que sobresale */
+.barra-publicar .barra-icono {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-top: -1.5rem;
+  border-radius: 50%;
+  background-color: var(--naranja);
+  color: var(--blanco);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(245, 166, 35, 0.4);
+}
+
+/* ===== COLORES POR CATEGORÍA ===== */
+
+/* Cartelitos de las tarjetas */
+.etiqueta-recursos { background-color: var(--naranja); }
+.etiqueta-dinamicas { background-color: var(--azul); }
+
+/* Chip elegido de cada categoría */
+.chips-recursos .chip.activo {
+  background-color: var(--naranja);
+  border-color: var(--naranja);
+}
+
+.chips-dinamicas .chip.activo {
+  background-color: var(--azul);
+  border-color: var(--azul);
+}
+
+.chips-hilos .chip.activo {
+  background-color: var(--rosa);
+  border-color: var(--rosa);
+}
+
+/* ===== DETALLE DE LA IDEA ===== */
+
+/* Cartelito con borde, sin relleno */
+.etiqueta-borde {
+  background-color: transparent;
+  color: var(--rosa);
+  border: 1.5px solid var(--rosa);
+}
+
+.detalle-texto {
+  color: #4B5563;
+  line-height: 1.6;
+}
+
+/* Títulos de cada sección (Actividades, Comentarios) */
+.seccion-titulo {
+  font-size: var(--texto-mediano);
+  font-weight: 800;
+  color: var(--azul-marino);
+  margin: 1.5rem 0 1rem;
+}
+
+/* Lista de actividades */
+.actividades {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.actividad {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--blanco);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(26, 58, 143, 0.08);
+}
+
+/* El circulito con el número */
+.actividad-numero {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--rosa);
+  color: var(--blanco);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actividad-nombre { font-weight: 700; }
+
+.actividad-texto {
+  font-size: var(--texto-chico);
+  color: #6B7280;
+}
+
+/* Me gusta, comentarios y guardar, con líneas arriba y abajo */
+.detalle-acciones {
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid #D5DAE5;
+  border-bottom: 1px solid #D5DAE5;
+}
+
+/* Comentarios */
+.comentario {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.avatar-chico {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.75rem;
+}
+
+.comentario-texto {
+  font-size: var(--texto-chico);
+  color: #4B5563;
+}
+
+/* Casillero para comentar con el botón al costado */
+.comentar {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.comentar input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #D5DAE5;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: var(--texto-chico);
+}
+
+.comentar input:focus {
+  outline: none;
+  border-color: var(--azul);
+}
+
+.comentar button {
+  padding: 0 1.25rem;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== BOTÓN SEGUIR ===== */
+
+.boton-seguir {
+  margin-left: auto;
+  padding: 0.375rem 0.875rem;
+  border: 1.5px solid var(--azul-marino);
+  border-radius: 999px;
+  background-color: var(--azul-marino);
+  color: var(--blanco);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Cuando ya seguís a esa persona: solo borde */
+.boton-seguir.siguiendo {
+  background-color: transparent;
+  color: var(--azul-marino);
+}
+
+/* Mensaje de "no seguís a nadie": escondido de entrada */
+.sin-seguidos {
+  display: none;
+  text-align: center;
+  color: #6B7280;
+  padding: 2rem 1rem;
+}
+
+/* ===== MI PERFIL ===== */
+
+/* Fila de arriba con la campanita a la derecha */
+.perfil-arriba {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.campana {
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+/* Foto, nombre y grupo, centrados */
+.perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.avatar-grande {
+  width: 5rem;
+  height: 5rem;
+  font-size: var(--titulo-1);
+  margin-bottom: 0.75rem;
+}
+
+.perfil-nombre {
+  margin-bottom: 0.25rem;
+}
+
+/* Caja blanca con los tres números */
+.estadisticas {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--blanco);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 12px rgba(26, 58, 143, 0.08);
+}
+
+.estadistica {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.estadistica-numero {
+  font-size: var(--titulo-2);
+  font-weight: 800;
+  color: var(--azul-marino);
+}
+
+.estadistica-texto {
+  font-size: var(--texto-chico);
+  color: #6B7280;
+}
+
+/* Link de cerrar sesión, en rosa */
+.cerrar-sesion {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--rosa);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ===== NOTIFICACIONES ===== */
+
+/* Botón chiquito, tipo link */
+.marcar-leidas {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--azul);
+  font-family: inherit;
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: -1rem;
+}
+
+/* Cada notificación: avatar, texto y hora en una fila */
+.notificacion {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
+  background-color: var(--blanco);
+}
+
+.notificacion-texto {
+  flex: 1;
+  font-size: var(--texto-chico);
+}
+
+.notificacion-hora {
+  font-size: 0.75rem;
+  color: #6B7280;
+}
+
+/* Las que no leíste: fondo celestito y puntito naranja */
+.notificacion.no-leida {
+  background-color: #E8EEFB;
+  position: relative;
+}
+
+.notificacion.no-leida::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -0.375rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--naranja);
+  transform: translateY(-50%);
+}
+
+/* Casillero grande de la descripción */
+.formulario textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+/* Casillero de la descripción (versión completa) */
+textarea {
+  width: 100%;
+  min-height: 8rem;
+  resize: vertical;
+  padding: 0.875rem 1rem;
+  border: 1px solid #D5DAE5;
+  border-radius: 0.75rem;
+  background-color: #FFFFFF;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #378ADD;
+}
+
+/* ===== INICIAR SESIÓN ===== */
+
+.olvide {
+  align-self: flex-end;
+  color: var(--azul);
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cambiar-cuenta {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #6B7280;
+  font-size: var(--texto-chico);
+}
+
+.cambiar-cuenta a {
+  color: var(--azul-marino);
+  font-weight: 700;
+}
+
+/* ===== FICHA DE DATOS RÁPIDOS ===== */
+
+.ficha {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.ficha li {
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background-color: var(--fondo);
+  color: #4B5563;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ===== ME GUSTA ===== */
+
+.boton-megusta {
+  cursor: pointer;
+  user-select: none;
+}
+
+.boton-megusta.activo {
+  color: var(--rosa);
+}
+
+/* ===== AYUDAS Y ERRORES DE LOS FORMULARIOS ===== */
+
+.texto-ayuda {
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin-top: -0.25rem;
+}
+
+.error-login {
+  display: none;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  background-color: #FCE8EF;
+  color: #9C2449;
+  font-size: 0.875rem;
+  font-weight: 700;
+}

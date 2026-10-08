@@ -8,6 +8,123 @@
     
 </head>
 <body>
-    
+<main class="pantalla con-barra">
+
+    <h1 class="pantalla-titulo">Publicar idea</h1>
+    <p class="pantalla-bajada">Escribila como una ficha: que otro madrij la pueda hacer sin preguntarte nada.</p>
+
+    <form action="feed.html" class="formulario" id="form-publicar">
+
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" placeholder="Ej: Búsqueda del tesoro" required>
+
+        <label for="categoria">¿Qué querés publicar?</label>
+        <select id="categoria" required>
+            <option value="">Elegí una opción</option>
+            <option value="juegos">Un juego</option>
+            <option value="recursos">Un recurso</option>
+            <option value="dinamicas">Una dinámica</option>
+            <option value="hilos">Un hilo conductor</option>
+        </select>
+
+        <label for="edad-janijim">¿Para qué edad?</label>
+        <select id="edad-janijim" required>
+            <option value="">Elegí una opción</option>
+            <option>3 a 5 años</option>
+            <option>6 a 8 años</option>
+            <option>9 a 11 años</option>
+            <option>12 a 14 años</option>
+            <option>15 a 17 años</option>
+            <option>todas las edades</option>
+        </select>
+
+        <label for="duracion">¿Cuánto dura?</label>
+        <select id="duracion" required>
+            <option value="">Elegí una opción</option>
+            <option>10 min</option>
+            <option>20 min</option>
+            <option>30 min</option>
+            <option>45 min</option>
+            <option>1 hora</option>
+            <option>Más de 1 hora</option>
+        </select>
+
+        <label for="participantes">¿Para cuántos janijim?</label>
+        <select id="participantes" required>
+            <option value="">Elegí una opción</option>
+            <option>Menos de 10</option>
+            <option>10 a 20</option>
+            <option>20 a 40</option>
+            <option>Más de 40</option>
+        </select>
+
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" placeholder="En una o dos oraciones: ¿de qué se trata?" required></textarea>
+
+        <label for="materiales">Materiales</label>
+        <textarea id="materiales" placeholder="Uno por renglón. Si no necesita nada, dejalo vacío."></textarea>
+
+        <label for="pasos">Paso a paso</label>
+        <textarea id="pasos" placeholder="Un paso por renglón. Ej:&#10;Armar dos equipos&#10;Explicar las reglas&#10;Jugar 15 minutos" required></textarea>
+
+        <button type="submit" class="boton boton-principal">Publicar</button>
+
+    </form>
+
+</main>
+
+<nav class="barra-abajo">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item">
+        <span class="barra-icono">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar activo">
+        <span class="barra-icono">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item">
+        <span class="barra-icono">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script>
+    const formPublicar = document.getElementById('form-publicar');
+
+    // Convierte un texto con renglones en una lista, sin los renglones vacíos
+    function aLista(texto) {
+        return texto.split('\n')
+            .map(function (renglon) { return renglon.trim(); })
+            .filter(function (renglon) { return renglon !== ''; });
+    }
+
+    formPublicar.addEventListener('submit', function () {
+        const publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+
+        const nueva = {
+            id: 'p' + Date.now(),
+            titulo: document.getElementById('titulo').value,
+            categoria: document.getElementById('categoria').value,
+            edad: document.getElementById('edad-janijim').value,
+            duracion: document.getElementById('duracion').value,
+            participantes: document.getElementById('participantes').value,
+            descripcion: document.getElementById('descripcion').value,
+            materiales: aLista(document.getElementById('materiales').value),
+            pasos: aLista(document.getElementById('pasos').value),
+            autor: localStorage.getItem('nombre') || 'Miri'
+        };
+
+        publicaciones.push(nueva);
+        localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+    });
+</script>
 </body>
 </html>

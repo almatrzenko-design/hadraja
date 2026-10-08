@@ -8,6 +8,76 @@
     
 </head>
 <body>
-    
+<main class="pantalla con-barra">
+
+    <a href="mi-perfil.html" class="volver">← Perfil</a>
+
+    <h1 class="pantalla-titulo">Notificaciones</h1>
+
+    <button id="marcar-leidas" class="marcar-leidas">Marcar todas como leídas</button>
+
+    <h2 class="seccion-titulo">Hoy</h2>
+
+    <div class="notificacion no-leida">
+        <span class="avatar avatar-chico">TL</span>
+        <p class="notificacion-texto"><strong>Tami Levy</strong> le dio me gusta a tu idea "Carrera de embolsados".</p>
+        <span class="notificacion-hora">2 h</span>
+    </div>
+
+    <div class="notificacion no-leida">
+        <span class="avatar avatar-chico avatar-azul">DB</span>
+        <p class="notificacion-texto"><strong>Dani Bergman</strong> comentó: "¡Me la llevo para el majané!"</p>
+        <span class="notificacion-hora">5 h</span>
+    </div>
+
+    <h2 class="seccion-titulo">Esta semana</h2>
+
+    <div class="notificacion">
+        <span class="avatar avatar-chico">NS</span>
+        <p class="notificacion-texto"><strong>Noa Schwartz</strong> empezó a seguirte.</p>
+        <span class="notificacion-hora">2 d</span>
+    </div>
+
+    <div class="notificacion">
+        <span class="avatar avatar-chico avatar-azul">MG</span>
+        <p class="notificacion-texto"><strong>Maia Goldberg</strong> guardó tu idea "Carrera de embolsados".</p>
+        <span class="notificacion-hora">4 d</span>
+    </div>
+
+</main>
+
+<nav class="barra-abajo">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item">
+        <span class="barra-icono">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item activo">
+        <span class="barra-icono">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script>
+    const botonMarcar = document.getElementById('marcar-leidas');
+
+    botonMarcar.addEventListener('click', function () {
+        const noLeidas = document.querySelectorAll('.no-leida');
+        noLeidas.forEach(function (notificacion) {
+            notificacion.classList.remove('no-leida');
+        });
+    });
+</script>
 </body>
 </html>
