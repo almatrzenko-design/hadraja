@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos-Hadraja</title>
+    <title>Recursos | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
@@ -15,19 +16,19 @@
     <h1 class="pantalla-titulo">Recursos</h1>
     <p class="pantalla-bajada">Canciones, imprimibles y materiales listos para usar.</p>
 
-    <nav class="chips chips-recursos">
-        <a href="#" class="chip activo">Todos</a>
-        <a href="#" class="chip">Individuales</a>
-        <a href="#" class="chip">Para todos</a>
-        <a href="#" class="chip">Canciones</a>
-        <a href="#" class="chip">Imprimibles</a>
-        <a href="#" class="chip">Para días de lluvia</a>
-        <a href="#" class="chip">Para majané</a>
+    <nav class="chips chips-recursos" aria-label="Subcategorías">
+        <a href="#" class="chip activo" data-sub="">Todos</a>
+        <a href="#" class="chip" data-sub="Individuales">Individuales</a>
+        <a href="#" class="chip" data-sub="Para todos">Para todos</a>
+        <a href="#" class="chip" data-sub="Canciones">Canciones</a>
+        <a href="#" class="chip" data-sub="Imprimibles">Imprimibles</a>
+        <a href="#" class="chip" data-sub="Para días de lluvia">Para días de lluvia</a>
+        <a href="#" class="chip" data-sub="Para majané">Para majané</a>
     </nav>
 
     <div id="publicaciones-nuevas"></div>
 
-    <article class="tarjeta">
+    <article class="tarjeta" data-id="cancionero" data-autor="Noa Schwartz" data-edad="todas las edades" data-subcategorias="Canciones|Para majané|Para todos">
         <div class="tarjeta-autor">
             <span class="avatar">NS</span>
             <div>
@@ -36,8 +37,14 @@
             </div>
         </div>
         <span class="etiqueta etiqueta-recursos">Canciones</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Cancionero de fogón</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=cancionero">Cancionero de fogón</a></h2>
         <p class="tarjeta-texto">Las letras de las canciones más cantadas en los majanot, con los acordes para guitarra.</p>
+        <ul class="ficha">
+            <li>🧒 todas las edades</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 Más de 40</li>
+            <li>🎒 2 materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 40</span>
             <span>💬 9</span>
@@ -45,17 +52,23 @@
         </div>
     </article>
 
-    <article class="tarjeta">
+    <article class="tarjeta" data-id="bingo-valores" data-autor="Iael Katz" data-edad="9 a 11 años" data-subcategorias="Imprimibles|Para todos|Para días de lluvia">
         <div class="tarjeta-autor">
-            <span class="avatar avatar-azul">IK</span>
+            <span class="avatar">IK</span>
             <div>
                 <p class="autor-nombre">Iael Katz</p>
                 <p class="autor-movimiento">Kvutzá Erez</p>
             </div>
         </div>
         <span class="etiqueta etiqueta-recursos">Imprimibles</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Bingo de valores</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=bingo-valores">Bingo de valores</a></h2>
         <p class="tarjeta-texto">Cartones para imprimir con valores del movimiento. Ideal para cerrar una peulá.</p>
+        <ul class="ficha">
+            <li>🧒 9 a 11 años</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 20 a 40</li>
+            <li>🎒 2 materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 27</span>
             <span>💬 4</span>
@@ -63,27 +76,53 @@
         </div>
     </article>
 
+    <article class="tarjeta" data-id="diario-madrij" data-autor="Maia Goldberg" data-edad="todas las edades" data-subcategorias="Individuales|Imprimibles">
+        <div class="tarjeta-autor">
+            <span class="avatar">MG</span>
+            <div>
+                <p class="autor-nombre">Maia Goldberg</p>
+                <p class="autor-movimiento">Kvutzá Arazim</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-recursos">Individuales</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=diario-madrij">Diario del madrij</a></h2>
+        <p class="tarjeta-texto">Hojas para imprimir y anotar después de cada peulá qué salió bien y qué cambiarías.</p>
+        <ul class="ficha">
+            <li>🧒 todas las edades</li>
+            <li>⏱️ 10 min</li>
+            <li>👥 Menos de 10</li>
+            <li>🎒 2 materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 15</span>
+            <span>💬 2</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <p id="sin-resultados" class="aviso-vacio">Todavía no hay ideas de este tipo. ¡Publicá la primera!</p>
+
 </main>
 
-<nav class="barra-abajo">
+<nav class="barra-abajo" aria-label="Navegación principal">
     <a href="feed.html" class="barra-item">
-        <span class="barra-icono">🏠</span>
+        <span class="barra-icono" aria-hidden="true">🏠</span>
         <span>Inicio</span>
     </a>
-    <a href="explorar.html" class="barra-item activo">
-        <span class="barra-icono">🔍</span>
+    <a href="explorar.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">🔍</span>
         <span>Explorar</span>
     </a>
     <a href="publicar.html" class="barra-item barra-publicar">
-        <span class="barra-icono">＋</span>
+        <span class="barra-icono" aria-hidden="true">＋</span>
         <span>Publicar</span>
     </a>
     <a href="guardadas.html" class="barra-item">
-        <span class="barra-icono">🔖</span>
+        <span class="barra-icono" aria-hidden="true">🔖</span>
         <span>Guardadas</span>
     </a>
     <a href="mi-perfil.html" class="barra-item">
-        <span class="barra-icono">👤</span>
+        <span class="barra-icono" aria-hidden="true">👤</span>
         <span>Perfil</span>
     </a>
 </nav>
@@ -92,7 +131,9 @@
 <script>
     mostrarPublicaciones('recursos');
 </script>
+<script src="js/subcategorias.js"></script>
 <script src="js/guardar.js"></script>
-<script src="js/megusta.js"></script>   
+<script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

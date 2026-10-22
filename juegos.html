@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juegos-Hadraja</title>
+    <title>Juegos | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
@@ -15,20 +16,44 @@
     <h1 class="pantalla-titulo">Juegos</h1>
     <p class="pantalla-bajada">Para romper el hielo, moverse y divertirse en grupo.</p>
 
-    <nav class="chips">
-        <a href="#" class="chip activo">Todos</a>
-        <a href="#" class="chip">Rompehielos</a>
-        <a href="#" class="chip">Con música</a>
-        <a href="#" class="chip">En ronda</a>
-        <a href="#" class="chip">Con pelota</a>
-        <a href="#" class="chip">Carreras</a>
-        <a href="#" class="chip">Para pensar</a>
-        <a href="#" class="chip">Para días de lluvia</a>
+    <nav class="chips" aria-label="Subcategorías">
+        <a href="#" class="chip activo" data-sub="">Todos</a>
+        <a href="#" class="chip" data-sub="Rompehielos">Rompehielos</a>
+        <a href="#" class="chip" data-sub="Con música">Con música</a>
+        <a href="#" class="chip" data-sub="En ronda">En ronda</a>
+        <a href="#" class="chip" data-sub="Con pelota">Con pelota</a>
+        <a href="#" class="chip" data-sub="Carreras">Carreras</a>
+        <a href="#" class="chip" data-sub="Para pensar">Para pensar</a>
+        <a href="#" class="chip" data-sub="Para días de lluvia">Para días de lluvia</a>
     </nav>
 
     <div id="publicaciones-nuevas"></div>
 
-    <article class="tarjeta">
+    <article class="tarjeta" data-id="busqueda-tesoro" data-autor="Tami Levy" data-edad="9 a 11 años" data-subcategorias="Carreras|Para pensar">
+        <div class="tarjeta-autor">
+            <span class="avatar">TL</span>
+            <div>
+                <p class="autor-nombre">Tami Levy</p>
+                <p class="autor-movimiento">Kvutzá Arazim</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-juegos">Carreras</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=busqueda-tesoro">Búsqueda del tesoro</a></h2>
+        <p class="tarjeta-texto">Juego por equipos con pistas escondidas, ideal para janijim de 9 a 11 años.</p>
+        <ul class="ficha">
+            <li>🧒 9 a 11 años</li>
+            <li>⏱️ 1 hora</li>
+            <li>👥 20 a 40</li>
+            <li>🎒 3 materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 24</span>
+            <span>💬 8</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta" data-id="nudo-humano" data-autor="Tami Levy" data-edad="12 a 14 años" data-subcategorias="Rompehielos|En ronda">
         <div class="tarjeta-autor">
             <span class="avatar">TL</span>
             <div>
@@ -37,8 +62,14 @@
             </div>
         </div>
         <span class="etiqueta etiqueta-juegos">Rompehielos</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">El nudo humano</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=nudo-humano">El nudo humano</a></h2>
         <p class="tarjeta-texto">En ronda, todos se agarran de las manos cruzadas y tienen que desenredarse sin soltarse.</p>
+        <ul class="ficha">
+            <li>🧒 12 a 14 años</li>
+            <li>⏱️ 10 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 Sin materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 32</span>
             <span>💬 5</span>
@@ -46,7 +77,7 @@
         </div>
     </article>
 
-    <article class="tarjeta">
+    <article class="tarjeta" data-id="mimica" data-autor="Dani Bergman" data-edad="12 a 14 años" data-subcategorias="Para días de lluvia|Para pensar">
         <div class="tarjeta-autor">
             <span class="avatar avatar-azul">DB</span>
             <div>
@@ -55,8 +86,14 @@
             </div>
         </div>
         <span class="etiqueta etiqueta-juegos">Para días de lluvia</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Dígalo con mímica</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=mimica">Dígalo con mímica</a></h2>
         <p class="tarjeta-texto">Dos equipos adivinan películas y canciones actuadas sin hablar. No necesita materiales.</p>
+        <ul class="ficha">
+            <li>🧒 12 a 14 años</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 Sin materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 18</span>
             <span>💬 3</span>
@@ -64,27 +101,77 @@
         </div>
     </article>
 
+    <article class="tarjeta" data-id="quemado" data-autor="Joni Rosen" data-edad="9 a 11 años" data-subcategorias="Con pelota|Carreras">
+        <div class="tarjeta-autor">
+            <span class="avatar avatar-azul">JR</span>
+            <div>
+                <p class="autor-nombre">Joni Rosen</p>
+                <p class="autor-movimiento">Kvutzá Tamar</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-juegos">Con pelota</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=quemado">Quemado cooperativo</a></h2>
+        <p class="tarjeta-texto">El quemado de siempre, pero un compañero te puede salvar atrapando la pelota en el aire.</p>
+        <ul class="ficha">
+            <li>🧒 9 a 11 años</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 20 a 40</li>
+            <li>🎒 2 materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 33</span>
+            <span>💬 4</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta" data-id="sillas-musicales" data-autor="Iael Katz" data-edad="6 a 8 años" data-subcategorias="Con música|Rompehielos|Para días de lluvia">
+        <div class="tarjeta-autor">
+            <span class="avatar">IK</span>
+            <div>
+                <p class="autor-nombre">Iael Katz</p>
+                <p class="autor-movimiento">Kvutzá Erez</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-juegos">Con música</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=sillas-musicales">Sillas musicales al revés</a></h2>
+        <p class="tarjeta-texto">Cuando para la música se sacan sillas, pero nadie queda afuera: hay que entrar todos.</p>
+        <ul class="ficha">
+            <li>🧒 6 a 8 años</li>
+            <li>⏱️ 20 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 2 materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 41</span>
+            <span>💬 6</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <p id="sin-resultados" class="aviso-vacio">Todavía no hay ideas de este tipo. ¡Publicá la primera!</p>
+
 </main>
 
-<nav class="barra-abajo">
+<nav class="barra-abajo" aria-label="Navegación principal">
     <a href="feed.html" class="barra-item">
-        <span class="barra-icono">🏠</span>
+        <span class="barra-icono" aria-hidden="true">🏠</span>
         <span>Inicio</span>
     </a>
-    <a href="explorar.html" class="barra-item activo">
-        <span class="barra-icono">🔍</span>
+    <a href="explorar.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">🔍</span>
         <span>Explorar</span>
     </a>
     <a href="publicar.html" class="barra-item barra-publicar">
-        <span class="barra-icono">＋</span>
+        <span class="barra-icono" aria-hidden="true">＋</span>
         <span>Publicar</span>
     </a>
     <a href="guardadas.html" class="barra-item">
-        <span class="barra-icono">🔖</span>
+        <span class="barra-icono" aria-hidden="true">🔖</span>
         <span>Guardadas</span>
     </a>
     <a href="mi-perfil.html" class="barra-item">
-        <span class="barra-icono">👤</span>
+        <span class="barra-icono" aria-hidden="true">👤</span>
         <span>Perfil</span>
     </a>
 </nav>
@@ -93,7 +180,9 @@
 <script>
     mostrarPublicaciones('juegos');
 </script>
+<script src="js/subcategorias.js"></script>
 <script src="js/guardar.js"></script>
 <script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

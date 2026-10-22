@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro-Hadraja</title>
+    <title>Crear cuenta | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
 </head>
 <body>
 <main class="pantalla">
@@ -14,8 +14,6 @@
 
     <h1 class="pantalla-titulo">Crear cuenta</h1>
     <p class="pantalla-bajada">Sumate a la comunidad de madrijim.</p>
-
-    <p id="error-registro" class="error-login"></p>
 
     <form class="formulario" id="form-registro" novalidate>
 
@@ -35,7 +33,9 @@
 
         <p class="terminos">Al registrarte aceptás los términos y condiciones de Hadrajá.</p>
 
-        <button type="submit" class="boton boton-principal">Siguiente</button>
+        <p id="error-registro" class="error-login" role="alert"></p>
+
+        <button type="submit" class="boton boton-principal">Registrarme</button>
 
     </form>
 
@@ -82,14 +82,26 @@
         if (error !== '') {
             cartelError.textContent = error;
             cartelError.style.display = 'block';
+            cartelError.scrollIntoView({ block: 'center' });
             return;
         }
 
         // Todo bien: guardamos la cuenta e iniciamos sesión
-        cuentas.push({ nombre: nombre, email: email, contrasena: contrasena });
+        cuentas.push({ nombre: nombre, email: email, contrasena: contrasena, grupo: '', janijim: '', seguidores: 0 });
         localStorage.setItem('cuentas', JSON.stringify(cuentas));
         localStorage.setItem('nombre', nombre);
         localStorage.setItem('sesion', email);
+
+        // Notificación de bienvenida
+        const notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || [];
+        notificaciones.push({
+            para: email,
+            texto: '¡Bienvenida/o a Hadrajá, ' + nombre + '! Empezá explorando ideas o publicá la tuya.',
+            link: 'explorar.html',
+            fecha: Date.now(),
+            leida: false
+        });
+        localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
 
         location.href = 'grupo.html';
     });

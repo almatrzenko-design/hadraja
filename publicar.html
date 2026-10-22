@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publicar-Hadraja</title>
+    <title>Publicar idea | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
@@ -26,6 +27,12 @@
             <option value="dinamicas">Una dinámica</option>
             <option value="hilos">Un hilo conductor</option>
         </select>
+
+        <div id="zona-subcategorias" class="zona-subcategorias">
+            <p class="titulo-campo">¿De qué tipo es? <span>(podés elegir más de una)</span></p>
+            <div class="opciones-sub" id="opciones-sub"></div>
+            <p id="error-sub" class="error-sub">Elegí al menos una.</p>
+        </div>
 
         <label for="edad-janijim">¿Para qué edad?</label>
         <select id="edad-janijim" required>
@@ -73,7 +80,7 @@
 
 </main>
 
-<nav class="barra-abajo">
+<nav class="barra-abajo" aria-label="Navegación principal">
     <a href="feed.html" class="barra-item">
         <span class="barra-icono">🏠</span>
         <span>Inicio</span>
@@ -96,8 +103,35 @@
     </a>
 </nav>
 
+<script src="js/subcategorias.js"></script>
 <script>
     const formPublicar = document.getElementById('form-publicar');
+    const selectCategoria = document.getElementById('categoria');
+    const zonaSub = document.getElementById('zona-subcategorias');
+    const opcionesSub = document.getElementById('opciones-sub');
+    const errorSub = document.getElementById('error-sub');
+
+    // Cuando elegís la categoría, aparecen sus subcategorías para tildar
+    selectCategoria.addEventListener('change', function () {
+        const lista = SUBCATEGORIAS[selectCategoria.value];
+
+        if (!lista) {
+            zonaSub.style.display = 'none';
+            opcionesSub.innerHTML = '';
+            return;
+        }
+
+        opcionesSub.innerHTML = lista.map(function (sub) {
+            return '<label class="opcion-sub"><input type="checkbox" value="' + sub + '"> ' + sub + '</label>';
+        }).join('');
+        zonaSub.style.display = 'block';
+        errorSub.style.display = 'none';
+    });
+
+    // Apenas tildás una, se va el aviso de error
+    opcionesSub.addEventListener('change', function () {
+        errorSub.style.display = 'none';
+    });
 
     // Convierte un texto con renglones en una lista, sin los renglones vacíos
     function aLista(texto) {
@@ -106,24 +140,50 @@
             .filter(function (renglon) { return renglon !== ''; });
     }
 
-    formPublicar.addEventListener('submit', function () {
+    formPublicar.addEventListener('submit', function (evento) {
+        // Las subcategorías tildadas
+        const tildadas = Array.from(opcionesSub.querySelectorAll('input:checked')).map(function (casilla) {
+            return casilla.value;
+        });
+
+        // Si no tildó ninguna, no publicamos todavía
+        if (tildadas.length === 0) {
+            evento.preventDefault();
+            errorSub.style.display = 'block';
+            zonaSub.scrollIntoView({ block: 'center' });
+            return;
+        }
+
         const publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
 
         const nueva = {
             id: 'p' + Date.now(),
             titulo: document.getElementById('titulo').value,
-            categoria: document.getElementById('categoria').value,
+            categoria: selectCategoria.value,
+            subcategorias: tildadas,
             edad: document.getElementById('edad-janijim').value,
             duracion: document.getElementById('duracion').value,
             participantes: document.getElementById('participantes').value,
             descripcion: document.getElementById('descripcion').value,
             materiales: aLista(document.getElementById('materiales').value),
             pasos: aLista(document.getElementById('pasos').value),
-            autor: localStorage.getItem('nombre') || 'Miri'
+            autor: localStorage.getItem('nombre') || 'Miri',
+            email: localStorage.getItem('sesion')
         };
 
         publicaciones.push(nueva);
         localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+
+        // Notificación: tu idea ya está publicada
+        const notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || [];
+        notificaciones.push({
+            para: localStorage.getItem('sesion'),
+            texto: 'Publicaste "' + nueva.titulo + '". Ya la pueden ver otros madrijim.',
+            link: 'idea.html?id=' + nueva.id,
+            fecha: Date.now(),
+            leida: false
+        });
+        localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
     });
 </script>
 </body>

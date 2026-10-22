@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesion-Hadraja</title>
+    <title>Iniciar sesión | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
 </head>
 <body>
 <main class="pantalla">
@@ -15,8 +15,6 @@
     <h1 class="pantalla-titulo">Iniciar sesión</h1>
     <p class="pantalla-bajada">¡Qué bueno verte de nuevo!</p>
 
-    <p id="error-login" class="error-login"></p>
-
     <form class="formulario" id="form-login" novalidate>
 
         <label for="email">Email</label>
@@ -24,6 +22,8 @@
 
         <label for="contrasena">Contraseña</label>
         <input type="password" id="contrasena" placeholder="Tu contraseña">
+
+        <p id="error-login" class="error-login" role="alert"></p>
 
         <button type="submit" class="boton boton-principal">Entrar</button>
 
@@ -45,9 +45,15 @@
         const email = document.getElementById('email').value.trim().toLowerCase();
         const contrasena = document.getElementById('contrasena').value;
 
-        // Las cuentas registradas + la de prueba
+        // Las cuentas registradas. Si no está la de prueba, la agregamos.
         const cuentas = JSON.parse(localStorage.getItem('cuentas')) || [];
-        cuentas.push({ nombre: 'Miri', email: 'miri@gmail.com', contrasena: 'hadraja123' });
+        if (!cuentas.some(function (c) { return c.email === 'miri@gmail.com'; })) {
+            cuentas.push({
+                nombre: 'Miri', email: 'miri@gmail.com', contrasena: 'hadraja123',
+                grupo: 'Kvutzá Arazim', janijim: '9 a 11 años', edad: '18 a 20 años', seguidores: 48
+            });
+            localStorage.setItem('cuentas', JSON.stringify(cuentas));
+        }
 
         const cuenta = cuentas.find(function (c) { return c.email === email; });
 
@@ -63,6 +69,7 @@
         if (error !== '') {
             cartelError.textContent = error;
             cartelError.style.display = 'block';
+            cartelError.scrollIntoView({ block: 'center' });
             return;
         }
 
@@ -72,6 +79,6 @@
 
         location.href = 'feed.html';
     });
-</script>  
+</script>
 </body>
 </html>

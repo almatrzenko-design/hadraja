@@ -4,29 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi perfil | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
- <main class="pantalla con-barra">
+<main class="pantalla con-barra">
 
     <div class="perfil-arriba">
-        <a href="notificaciones.html" class="campana">🔔</a>
+        <a href="feed.html" class="volver">← Inicio</a>
+        <a href="notificaciones.html" class="campana" aria-label="Notificaciones">🔔<span class="campana-numero" id="campana-numero"></span></a>
     </div>
 
     <div class="perfil">
         <span class="avatar avatar-grande" id="perfil-inicial">M</span>
         <h1 class="pantalla-titulo perfil-nombre" id="perfil-nombre">Miri</h1>
-        <p class="autor-movimiento">Madrijá · Kvutzá Arazim</p>
+        <p class="autor-movimiento" id="perfil-grupo"></p>
+        <p class="autor-movimiento" id="perfil-email"></p>
+        <p class="perfil-janijim" id="perfil-janijim"></p>
     </div>
 
     <div class="estadisticas">
         <div class="estadistica">
-            <span class="estadistica-numero">3</span>
+            <span class="estadistica-numero" id="cantidad-ideas">0</span>
             <span class="estadistica-texto">Ideas</span>
         </div>
         <div class="estadistica">
-            <span class="estadistica-numero">48</span>
+            <span class="estadistica-numero" id="cantidad-seguidores">0</span>
             <span class="estadistica-texto">Seguidores</span>
         </div>
         <div class="estadistica">
@@ -35,16 +39,172 @@
         </div>
     </div>
 
-    <a href="#" class="boton boton-secundario">Editar perfil</a>
+    <div class="perfil-botones">
+        <button type="button" class="boton boton-secundario" id="editar-perfil">Editar perfil</button>
+        <a href="grupo.html" class="boton boton-secundario">Mi grupo</a>
+    </div>
 
     <h2 class="seccion-titulo">Mis ideas</h2>
 
-    <article class="tarjeta">
-        <span class="etiqueta etiqueta-juegos">Juegos</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Carrera de embolsados</a></h2>
-        <p class="tarjeta-texto">Clásico de majané: carreras por equipos saltando adentro de bolsas.</p>
-        <div class="tarjeta-acciones">
-            <span>♡ 19</span>
-            <span>💬   
+    <p id="sin-ideas" class="sin-seguidos">Todavía no publicaste ideas. <a href="publicar.html">¡Publicá la primera!</a></p>
+
+    <div id="mis-ideas"></div>
+
+    <a href="index.html" class="cerrar-sesion">Cerrar sesión</a>
+
+</main>
+
+<nav class="barra-abajo" aria-label="Navegación principal">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono" aria-hidden="true">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item">
+        <span class="barra-icono" aria-hidden="true">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono" aria-hidden="true">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono" aria-hidden="true">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script src="js/publicaciones.js"></script>
+<script>
+    // ===== Tus datos, los de TU cuenta =====
+    const emailSesion = localStorage.getItem('sesion');
+
+    function dibujarPerfil() {
+        const cuenta = cuentaActual() || { nombre: localStorage.getItem('nombre') || 'Miri' };
+
+        document.getElementById('perfil-nombre').textContent = cuenta.nombre;
+        document.getElementById('perfil-inicial').textContent = iniciales(cuenta.nombre);
+        document.getElementById('perfil-email').textContent = emailSesion || '';
+        document.getElementById('perfil-grupo').innerHTML = cuenta.grupo
+            ? 'Madrij/á · ' + limpiar(cuenta.grupo)
+            : '<a href="grupo.html">Contanos de tu grupo</a>';
+        document.getElementById('perfil-janijim').textContent = cuenta.janijim
+            ? '🧒 Janijim de ' + cuenta.janijim
+            : '';
+        document.getElementById('cantidad-seguidores').textContent = cuenta.seguidores || 0;
+    }
+
+    // Cuántas personas seguís
+    const listaSeguidos = JSON.parse(localStorage.getItem('seguidos')) || [];
+    document.getElementById('cantidad-seguidos').textContent = listaSeguidos.length;
+
+    // Notificaciones sin leer (el numerito de la campana)
+    const sinLeer = (JSON.parse(localStorage.getItem('notificaciones')) || []).filter(function (n) {
+        return n.para === emailSesion && !n.leida;
+    }).length;
+    const numerito = document.getElementById('campana-numero');
+    numerito.textContent = sinLeer;
+    numerito.style.display = sinLeer > 0 ? 'flex' : 'none';
+
+    // ===== Mis ideas: las que publicaste con esta cuenta =====
+    function misIdeas() {
+        const publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+        return publicaciones.filter(function (pub) {
+            return pub.email === emailSesion;
+        });
+    }
+
+    const mias = misIdeas();
+    document.getElementById('cantidad-ideas').textContent = mias.length;
+    document.getElementById('sin-ideas').style.display = mias.length === 0 ? 'block' : 'none';
+    document.getElementById('mis-ideas').innerHTML = mias.reverse().map(tarjetaHTML).join('');
+
+    dibujarPerfil();
+
+    // ===== Editar perfil (en una ventanita) =====
+    document.getElementById('editar-perfil').addEventListener('click', function () {
+        const cuenta = cuentaActual() || {};
+        const fondo = document.createElement('div');
+        fondo.className = 'ventana-fondo';
+        fondo.innerHTML = `
+            <div class="ventana" role="dialog" aria-modal="true" aria-label="Editar perfil">
+                <div class="ventana-cabecera">
+                    <h2 class="ventana-titulo">Editar perfil</h2>
+                    <button type="button" class="ventana-cerrar" aria-label="Cerrar">✕</button>
+                </div>
+                <form class="formulario" id="form-editar">
+                    <label for="editar-nombre">Nombre</label>
+                    <input type="text" id="editar-nombre" value="${limpiar(cuenta.nombre)}">
+
+                    <label for="editar-grupo">Nombre del grupo</label>
+                    <input type="text" id="editar-grupo" value="${limpiar(cuenta.grupo)}" placeholder="Ej: Kvutzá Arazim">
+
+                    <label for="editar-janijim">Edad de los janijim</label>
+                    <select id="editar-janijim">
+                        <option value="">Elegí una opción</option>
+                        <option>3 a 5 años</option>
+                        <option>6 a 8 años</option>
+                        <option>9 a 11 años</option>
+                        <option>12 a 14 años</option>
+                        <option>15 a 17 años</option>
+                    </select>
+
+                    <p id="error-editar" class="error-login" role="alert"></p>
+
+                    <button type="submit" class="boton boton-principal">Guardar cambios</button>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(fondo);
+        fondo.querySelector('#editar-janijim').value = cuenta.janijim || '';
+
+        function cerrar() {
+            fondo.remove();
+        }
+        fondo.querySelector('.ventana-cerrar').addEventListener('click', cerrar);
+        fondo.addEventListener('click', function (evento) {
+            if (evento.target === fondo) {
+                cerrar();
+            }
+        });
+
+        fondo.querySelector('#form-editar').addEventListener('submit', function (evento) {
+            evento.preventDefault();
+            const nombreNuevo = fondo.querySelector('#editar-nombre').value.trim();
+
+            if (nombreNuevo.length < 2) {
+                const error = fondo.querySelector('#error-editar');
+                error.textContent = 'Escribí tu nombre.';
+                error.style.display = 'block';
+                return;
+            }
+
+            guardarCuenta({
+                nombre: nombreNuevo,
+                grupo: fondo.querySelector('#editar-grupo').value.trim(),
+                janijim: fondo.querySelector('#editar-janijim').value
+            });
+            localStorage.setItem('nombre', nombreNuevo);
+
+            // Tus ideas publicadas ahora salen con tu nombre nuevo
+            const publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+            publicaciones.forEach(function (pub) {
+                if (pub.email === emailSesion) {
+                    pub.autor = nombreNuevo;
+                }
+            });
+            localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+
+            cerrar();
+            location.reload();
+        });
+    });
+</script>
+<script src="js/guardar.js"></script>
+<script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

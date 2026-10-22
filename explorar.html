@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorar-Hadraja</title>
+    <title>Explorar | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
-<main class="pantalla">
+<main class="pantalla con-barra">
+
+    <a href="feed.html" class="volver">← Inicio</a>
 
     <h1 class="pantalla-titulo">Explorar</h1>
 
-    <input type="search" class="buscador" placeholder="🔍 Buscar juegos, peulot, recursos...">
+    <input type="search" class="buscador" id="buscador" placeholder="🔍 Buscar juegos, peulot, recursos...">
 
-    <div class="categorias">
+    <div class="categorias" id="categorias">
 
         <a href="juegos.html" class="categoria categoria-juegos">
             <span class="categoria-icono">🎲</span>
@@ -38,8 +41,89 @@
 
     </div>
 
-</main>  
-<a href="feed.html" class="barra-item"></a>
-<a href="explorar.html" class="barra-item activo"></a>
+    <div id="resultados"></div>
+
+</main>
+
+<nav class="barra-abajo" aria-label="Navegación principal">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item activo">
+        <span class="barra-icono">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item">
+        <span class="barra-icono">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
+
+<script src="js/ejemplos.js"></script>
+<script src="js/publicaciones.js"></script>
+<script>
+    // ===== El buscador =====
+
+    // Las ideas de ejemplo están en js/ejemplos.js (EJEMPLOS)
+
+    // Saca tildes y mayúsculas: así "pesaj" encuentra "Pésaj"
+    function normalizar(texto) {
+        return String(texto || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    }
+
+    const buscador = document.getElementById('buscador');
+    const zonaCategorias = document.getElementById('categorias');
+    const zonaResultados = document.getElementById('resultados');
+
+    buscador.addEventListener('input', function () {
+        const busqueda = normalizar(buscador.value.trim());
+
+        // Si el buscador está vacío, volvemos a mostrar las categorías
+        if (busqueda === '') {
+            zonaCategorias.style.display = 'grid';
+            zonaResultados.innerHTML = '';
+            return;
+        }
+        zonaCategorias.style.display = 'none';
+
+        // Juntamos las de ejemplo con las publicadas
+        const publicadas = JSON.parse(localStorage.getItem('publicaciones')) || [];
+        const todas = EJEMPLOS.concat(publicadas);
+
+        const encontradas = todas.filter(function (idea) {
+            const subcategorias = (idea.subcategorias || []).join(' ');
+            const texto = normalizar(idea.titulo + ' ' + idea.descripcion + ' ' + categorias[idea.categoria].nombre + ' ' + subcategorias);
+            return texto.includes(busqueda);
+        });
+
+        if (encontradas.length === 0) {
+            zonaResultados.innerHTML = '<p class="buscador-aviso">No encontramos nada con "' + limpiar(buscador.value) + '". Probá con otra palabra.</p>';
+            return;
+        }
+
+        zonaResultados.innerHTML = '<p class="buscador-aviso">' + encontradas.length + ' resultados</p>' +
+            encontradas.map(tarjetaHTML).join('');
+
+        // Las tarjetas nuevas también tienen que tener me gusta, guardar y comentarios
+        prepararBotones();
+        pintarGuardadas();
+        prepararCorazones();
+        pintarCorazones();
+        prepararGlobitos();
+        pintarGlobitos();
+    });
+</script>
+<script src="js/guardar.js"></script>
+<script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

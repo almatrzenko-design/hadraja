@@ -1,3 +1,4 @@
+// ===== ME GUSTA =====
 // Lista de ideas que me gustan (las reconocemos por el título)
 let megusta = JSON.parse(localStorage.getItem('megusta')) || [];
 
@@ -14,6 +15,9 @@ function prepararCorazones() {
                 span.dataset.base = parseInt(texto.replace(/\D/g, '')) || 0;
             }
             span.classList.add('boton-megusta');
+            span.setAttribute('role', 'button');
+            span.setAttribute('tabindex', '0');
+            span.setAttribute('aria-label', 'Me gusta');
         }
     });
 }
@@ -31,6 +35,7 @@ function pintarCorazones() {
             corazon.textContent = '♡ ' + base;
             corazon.classList.remove('activo');
         }
+        corazon.setAttribute('aria-pressed', megusta.includes(titulo));
     });
 }
 
@@ -41,12 +46,19 @@ document.addEventListener('click', function (evento) {
         return;
     }
 
-    const titulo = tituloDeTarjeta(corazon.closest('.tarjeta'));
+    const tarjeta = corazon.closest('.tarjeta');
+    const titulo = tituloDeTarjeta(tarjeta);
 
     if (megusta.includes(titulo)) {
         megusta = megusta.filter(function (t) { return t !== titulo; });
     } else {
         megusta.push(titulo);
+
+        // Le avisamos a quien la publicó
+        if (typeof notificar === 'function') {
+            notificar(tarjeta.dataset.email, (localStorage.getItem('nombre') || 'Alguien') +
+                ' le dio me gusta a tu idea "' + titulo + '".', 'idea.html?id=' + tarjeta.dataset.id);
+        }
     }
 
     localStorage.setItem('megusta', JSON.stringify(megusta));

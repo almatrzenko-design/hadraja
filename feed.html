@@ -3,24 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio-Hadraja</title>
+    <title>Inicio | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
 
     <h1 class="pantalla-titulo">¡Hola, <span id="saludo-nombre">Miri</span>!</h1>
-    <p class="pantalla-bajada">¿Qué peulá armamos hoy?</p>
+    <p class="pantalla-bajada" id="saludo-bajada">¿Qué peulá armamos hoy?</p>
 
     <nav class="pestanias">
-        <a href="feed.html" class="pestania activa">Sugerencias</a>
+        <a href="feed.html" class="pestania activa" aria-current="page">Sugerencias</a>
         <a href="seguidos.html" class="pestania">Seguidos</a>
     </nav>
 
+    <div id="lista-feed">
+
     <div id="publicaciones-nuevas"></div>
 
-    <article class="tarjeta" data-autor="Tami Levy">
+    <article class="tarjeta" data-id="busqueda-tesoro" data-autor="Tami Levy" data-edad="9 a 11 años" data-subcategorias="Carreras|Para pensar">
         <div class="tarjeta-autor">
             <span class="avatar">TL</span>
             <div>
@@ -30,8 +33,14 @@
             <button class="boton-seguir">Seguir</button>
         </div>
         <span class="etiqueta etiqueta-juegos">Juegos</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Búsqueda del tesoro</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=busqueda-tesoro">Búsqueda del tesoro</a></h2>
         <p class="tarjeta-texto">Juego por equipos con pistas escondidas, ideal para janijim de 9 a 11 años.</p>
+        <ul class="ficha">
+            <li>🧒 9 a 11 años</li>
+            <li>⏱️ 1 hora</li>
+            <li>👥 20 a 40</li>
+            <li>🎒 3 materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 24</span>
             <span>💬 8</span>
@@ -39,7 +48,7 @@
         </div>
     </article>
 
-    <article class="tarjeta" data-autor="Dani Bergman">
+    <article class="tarjeta" data-id="majane-pesaj" data-autor="Dani Bergman" data-edad="12 a 14 años" data-subcategorias="Majané">
         <div class="tarjeta-autor">
             <span class="avatar avatar-azul">DB</span>
             <div>
@@ -49,8 +58,14 @@
             <button class="boton-seguir">Seguir</button>
         </div>
         <span class="etiqueta etiqueta-hilos">Hilos conductores</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Majané de Pesaj</a></h2>
-        <p class="tarjeta-texto">Programa de tres días sobre libertad, con actividades para cada momento.</p>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=majane-pesaj">Majané de Pesaj</a></h2>
+        <p class="tarjeta-texto">Un programa de tres días sobre la libertad. Cada actividad trabaja una parte de la historia de Pesaj y la conecta con la vida de los janijim hoy.</p>
+        <ul class="ficha">
+            <li>🧒 12 a 14 años</li>
+            <li>⏱️ Más de 1 hora</li>
+            <li>👥 20 a 40</li>
+            <li>🎒 2 materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 51</span>
             <span>💬 12</span>
@@ -58,40 +73,148 @@
         </div>
     </article>
 
+    <article class="tarjeta" data-id="sillas-musicales" data-autor="Iael Katz" data-edad="6 a 8 años" data-subcategorias="Con música|Rompehielos|Para días de lluvia">
+        <div class="tarjeta-autor">
+            <span class="avatar">IK</span>
+            <div>
+                <p class="autor-nombre">Iael Katz</p>
+                <p class="autor-movimiento">Kvutzá Erez</p>
+            </div>
+            <button class="boton-seguir">Seguir</button>
+        </div>
+        <span class="etiqueta etiqueta-juegos">Juegos</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=sillas-musicales">Sillas musicales al revés</a></h2>
+        <p class="tarjeta-texto">Cuando para la música se sacan sillas, pero nadie queda afuera: hay que entrar todos.</p>
+        <ul class="ficha">
+            <li>🧒 6 a 8 años</li>
+            <li>⏱️ 20 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 2 materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 41</span>
+            <span>💬 6</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta" data-id="cancionero" data-autor="Noa Schwartz" data-edad="todas las edades|todas las edades" data-subcategorias="Canciones|Para majané|Para todos">
+        <div class="tarjeta-autor">
+            <span class="avatar">NS</span>
+            <div>
+                <p class="autor-nombre">Noa Schwartz</p>
+                <p class="autor-movimiento">Kvutzá Tamar</p>
+            </div>
+            <button class="boton-seguir">Seguir</button>
+        </div>
+        <span class="etiqueta etiqueta-recursos">Recursos</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=cancionero">Cancionero de fogón</a></h2>
+        <p class="tarjeta-texto">Las letras de las canciones más cantadas en los majanot, con los acordes para guitarra.</p>
+        <ul class="ficha">
+            <li>🧒 todas las edades</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 Más de 40</li>
+            <li>🎒 2 materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 40</span>
+            <span>💬 9</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta" data-id="telarana" data-autor="Maia Goldberg" data-edad="12 a 14 años" data-subcategorias="Grupales|Para peulá">
+        <div class="tarjeta-autor">
+            <span class="avatar">MG</span>
+            <div>
+                <p class="autor-nombre">Maia Goldberg</p>
+                <p class="autor-movimiento">Kvutzá Arazim</p>
+            </div>
+            <button class="boton-seguir">Seguir</button>
+        </div>
+        <span class="etiqueta etiqueta-dinamicas">Dinámicas</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=telarana">La telaraña</a></h2>
+        <p class="tarjeta-texto">En ronda, cada uno dice algo de sí y le pasa el ovillo a otro. Al final queda una red que une a todo el grupo.</p>
+        <ul class="ficha">
+            <li>🧒 12 a 14 años</li>
+            <li>⏱️ 20 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 1 material</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 35</span>
+            <span>💬 6</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <article class="tarjeta" data-id="entrevista-cruzada" data-autor="Joni Rosen" data-edad="15 a 17 años" data-subcategorias="En parejas|Para peulá|Para días de lluvia">
+        <div class="tarjeta-autor">
+            <span class="avatar avatar-azul">JR</span>
+            <div>
+                <p class="autor-nombre">Joni Rosen</p>
+                <p class="autor-movimiento">Kvutzá Tamar</p>
+            </div>
+            <button class="boton-seguir">Seguir</button>
+        </div>
+        <span class="etiqueta etiqueta-dinamicas">Dinámicas</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=entrevista-cruzada">Entrevista cruzada</a></h2>
+        <p class="tarjeta-texto">En parejas se hacen preguntas y después cada uno presenta al otro frente al grupo.</p>
+        <ul class="ficha">
+            <li>🧒 15 a 17 años</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 Sin materiales</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 22</span>
+            <span>💬 4</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    </div>
+
 </main>
 
-<nav class="barra-abajo">
-    <a href="feed.html" class="barra-item activo">
-        <span class="barra-icono">🏠</span>
+<nav class="barra-abajo" aria-label="Navegación principal">
+    <a href="feed.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">🏠</span>
         <span>Inicio</span>
     </a>
     <a href="explorar.html" class="barra-item">
-        <span class="barra-icono">🔍</span>
+        <span class="barra-icono" aria-hidden="true">🔍</span>
         <span>Explorar</span>
     </a>
     <a href="publicar.html" class="barra-item barra-publicar">
-        <span class="barra-icono">＋</span>
+        <span class="barra-icono" aria-hidden="true">＋</span>
         <span>Publicar</span>
     </a>
     <a href="guardadas.html" class="barra-item">
-        <span class="barra-icono">🔖</span>
+        <span class="barra-icono" aria-hidden="true">🔖</span>
         <span>Guardadas</span>
     </a>
     <a href="mi-perfil.html" class="barra-item">
-        <span class="barra-icono">👤</span>
+        <span class="barra-icono" aria-hidden="true">👤</span>
         <span>Perfil</span>
     </a>
 </nav>
 
 <script>
-    const nombreGuardado = localStorage.getItem('nombre');
+    // ===== Saludo con tu nombre y tus janijim =====
+    const cuenta = cuentaActual();
+    const nombreGuardado = cuenta ? cuenta.nombre : localStorage.getItem('nombre');
 
     if (nombreGuardado) {
         document.getElementById('saludo-nombre').textContent = nombreGuardado;
     }
+    if (cuenta && cuenta.janijim) {
+        document.getElementById('saludo-bajada').textContent = 'Ideas para tus janijim de ' + cuenta.janijim + '.';
+    }
 </script>
 
 <script>
+    // ===== Seguir =====
     let seguidos = JSON.parse(localStorage.getItem('seguidos')) || [];
     const botonesSeguir = document.querySelectorAll('.boton-seguir');
 
@@ -129,8 +252,27 @@
 <script src="js/publicaciones.js"></script>
 <script>
     mostrarPublicaciones('todas');
+
+    // ===== Sugerencias: primero lo que sirve para TUS janijim =====
+    if (cuenta && cuenta.janijim) {
+        const lista = document.getElementById('lista-feed');
+        const tarjetas = Array.from(lista.querySelectorAll('.tarjeta'));
+
+        // Las que coinciden con tu edad de janijim (o son para todas las edades)
+        const paraVos = tarjetas.filter(function (tarjeta) {
+            const edades = (tarjeta.dataset.edad || '').split('|');
+            return edades.includes(cuenta.janijim) || edades.includes('todas las edades');
+        });
+
+        // Las pasamos arriba de todo, con un cartelito
+        paraVos.reverse().forEach(function (tarjeta) {
+            tarjeta.insertAdjacentHTML('afterbegin', '<p class="para-vos">⭐ Ideal para tus janijim</p>');
+            lista.prepend(tarjeta);
+        });
+    }
 </script>
 <script src="js/guardar.js"></script>
 <script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

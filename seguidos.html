@@ -4,106 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seguidos | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
 
     <h1 class="pantalla-titulo">¡Hola, <span id="saludo-nombre">Miri</span>!</h1>
-    <p class="pantalla-bajada">¿Qué peulá armamos hoy?</p>
+    <p class="pantalla-bajada">Lo último de la gente que seguís.</p>
 
     <nav class="pestanias">
         <a href="feed.html" class="pestania">Sugerencias</a>
-        <a href="seguidos.html" class="pestania activa">Seguidos</a>
+        <a href="seguidos.html" class="pestania activa" aria-current="page">Seguidos</a>
     </nav>
 
     <p id="sin-seguidos" class="sin-seguidos">Todavía no seguís a nadie. Tocá <strong>Seguir</strong> en las ideas de Sugerencias para ver acá lo que publican.</p>
 
-    <article class="tarjeta" data-autor="Tami Levy">
-        <div class="tarjeta-autor">
-            <span class="avatar">TL</span>
-            <div>
-                <p class="autor-nombre">Tami Levy</p>
-                <p class="autor-movimiento">Kvutzá Arazim</p>
-            </div>
-        </div>
-        <span class="etiqueta etiqueta-juegos">Juegos</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">El nudo humano</a></h2>
-        <p class="tarjeta-texto">En ronda, todos se agarran de las manos cruzadas y tienen que desenredarse sin soltarse.</p>
-        <div class="tarjeta-acciones">
-            <span>♡ 32</span>
-            <span>💬 5</span>
-            <span>🔖 Guardar</span>
-        </div>
-    </article>
-
-    <article class="tarjeta" data-autor="Dani Bergman">
-        <div class="tarjeta-autor">
-            <span class="avatar avatar-azul">DB</span>
-            <div>
-                <p class="autor-nombre">Dani Bergman</p>
-                <p class="autor-movimiento">Kvutzá Erez</p>
-            </div>
-        </div>
-        <span class="etiqueta etiqueta-hilos">Hilos conductores</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Proyecto Tikún Olam</a></h2>
-        <p class="tarjeta-texto">Un proyecto de varias semanas para hacer algo concreto por la comunidad.</p>
-        <div class="tarjeta-acciones">
-            <span>♡ 38</span>
-            <span>💬 7</span>
-            <span>🔖 Guardar</span>
-        </div>
-    </article>
+    <div id="lista-seguidos"></div>
 
 </main>
 
-<nav class="barra-abajo">
-    <a href="feed.html" class="barra-item activo">
-        <span class="barra-icono">🏠</span>
+<nav class="barra-abajo" aria-label="Navegación principal">
+    <a href="feed.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">🏠</span>
         <span>Inicio</span>
     </a>
     <a href="explorar.html" class="barra-item">
-        <span class="barra-icono">🔍</span>
+        <span class="barra-icono" aria-hidden="true">🔍</span>
         <span>Explorar</span>
     </a>
     <a href="publicar.html" class="barra-item barra-publicar">
-        <span class="barra-icono">＋</span>
+        <span class="barra-icono" aria-hidden="true">＋</span>
         <span>Publicar</span>
     </a>
     <a href="guardadas.html" class="barra-item">
-        <span class="barra-icono">🔖</span>
+        <span class="barra-icono" aria-hidden="true">🔖</span>
         <span>Guardadas</span>
     </a>
     <a href="mi-perfil.html" class="barra-item">
-        <span class="barra-icono">👤</span>
+        <span class="barra-icono" aria-hidden="true">👤</span>
         <span>Perfil</span>
     </a>
 </nav>
 
+<script src="js/ejemplos.js"></script>
+<script src="js/publicaciones.js"></script>
 <script>
-    const nombreGuardado = localStorage.getItem('nombre');
-
-    if (nombreGuardado) {
-        document.getElementById('saludo-nombre').textContent = nombreGuardado;
+    const cuenta = cuentaActual();
+    if (cuenta) {
+        document.getElementById('saludo-nombre').textContent = cuenta.nombre;
     }
-</script>
 
-<script>
+    // Las ideas (de ejemplo y publicadas) de la gente que seguís
     const listaSeguidos = JSON.parse(localStorage.getItem('seguidos')) || [];
-    const tarjetas = document.querySelectorAll('.tarjeta');
-
-    tarjetas.forEach(function (tarjeta) {
-        if (!listaSeguidos.includes(tarjeta.dataset.autor)) {
-            tarjeta.style.display = 'none';
-        }
+    const publicadas = JSON.parse(localStorage.getItem('publicaciones')) || [];
+    const ideasSeguidas = EJEMPLOS.concat(publicadas).filter(function (idea) {
+        return listaSeguidos.includes(idea.autor);
     });
 
-    if (listaSeguidos.length === 0) {
+    if (ideasSeguidas.length === 0) {
         document.getElementById('sin-seguidos').style.display = 'block';
     }
+
+    document.getElementById('lista-seguidos').innerHTML = ideasSeguidas.map(tarjetaHTML).join('');
 </script>
 <script src="js/guardar.js"></script>
 <script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

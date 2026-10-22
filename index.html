@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hadraja</title>
+    <title>Ideas para madrijim | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
 </head>
 <body>
- <h1><main class="splash">
+<main class="splash">
 
-    <div class="logo">
+    <div class="logo" aria-hidden="true">
         <span class="pieza pieza-azul"></span>
         <span class="pieza pieza-naranja"></span>
         <span class="pieza pieza-verde"></span>
@@ -23,6 +23,13 @@
     <a href="registro.html" class="boton boton-principal">Registrarme</a>
     <a href="iniciar-sesion.html" class="boton boton-secundario">Ya tengo cuenta</a>
 
-</main></h1>   
+</main>
+
+<script>
+    // Si ya hay una sesión abierta, vamos directo al inicio
+    if (localStorage.getItem('sesion')) {
+        location.replace('feed.html');
+    }
+</script>
 </body>
 </html>

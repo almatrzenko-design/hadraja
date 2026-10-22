@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinamicas-Hadraja</title>
+    <title>Dinámicas | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
@@ -15,18 +16,18 @@
     <h1 class="pantalla-titulo">Dinámicas</h1>
     <p class="pantalla-bajada">Actividades para trabajar en grupo o en parejas.</p>
 
-    <nav class="chips chips-dinamicas">
-        <a href="#" class="chip activo">Todas</a>
-        <a href="#" class="chip">Para majané</a>
-        <a href="#" class="chip">Para peulá</a>
-        <a href="#" class="chip">Grupales</a>
-        <a href="#" class="chip">En parejas</a>
-        <a href="#" class="chip">Para días de lluvia</a>
+    <nav class="chips chips-dinamicas" aria-label="Subcategorías">
+        <a href="#" class="chip activo" data-sub="">Todas</a>
+        <a href="#" class="chip" data-sub="Para majané">Para majané</a>
+        <a href="#" class="chip" data-sub="Para peulá">Para peulá</a>
+        <a href="#" class="chip" data-sub="Grupales">Grupales</a>
+        <a href="#" class="chip" data-sub="En parejas">En parejas</a>
+        <a href="#" class="chip" data-sub="Para días de lluvia">Para días de lluvia</a>
     </nav>
 
     <div id="publicaciones-nuevas"></div>
 
-    <article class="tarjeta">
+    <article class="tarjeta" data-id="telarana" data-autor="Maia Goldberg" data-edad="12 a 14 años" data-subcategorias="Grupales|Para peulá">
         <div class="tarjeta-autor">
             <span class="avatar">MG</span>
             <div>
@@ -35,8 +36,14 @@
             </div>
         </div>
         <span class="etiqueta etiqueta-dinamicas">Grupales</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">La telaraña</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=telarana">La telaraña</a></h2>
         <p class="tarjeta-texto">En ronda, cada uno dice algo de sí y le pasa el ovillo a otro. Al final queda una red que une a todo el grupo.</p>
+        <ul class="ficha">
+            <li>🧒 12 a 14 años</li>
+            <li>⏱️ 20 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 1 material</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 35</span>
             <span>💬 6</span>
@@ -44,7 +51,7 @@
         </div>
     </article>
 
-    <article class="tarjeta">
+    <article class="tarjeta" data-id="entrevista-cruzada" data-autor="Joni Rosen" data-edad="15 a 17 años" data-subcategorias="En parejas|Para peulá|Para días de lluvia">
         <div class="tarjeta-autor">
             <span class="avatar avatar-azul">JR</span>
             <div>
@@ -53,8 +60,14 @@
             </div>
         </div>
         <span class="etiqueta etiqueta-dinamicas">En parejas</span>
-        <h2 class="tarjeta-titulo"><a href="idea.html">Entrevista cruzada</a></h2>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=entrevista-cruzada">Entrevista cruzada</a></h2>
         <p class="tarjeta-texto">En parejas se hacen preguntas y después cada uno presenta al otro frente al grupo.</p>
+        <ul class="ficha">
+            <li>🧒 15 a 17 años</li>
+            <li>⏱️ 30 min</li>
+            <li>👥 10 a 20</li>
+            <li>🎒 Sin materiales</li>
+        </ul>
         <div class="tarjeta-acciones">
             <span>♡ 22</span>
             <span>💬 4</span>
@@ -62,27 +75,53 @@
         </div>
     </article>
 
+    <article class="tarjeta" data-id="debate-libertad" data-autor="Dani Bergman" data-edad="15 a 17 años" data-subcategorias="Para majané|Grupales">
+        <div class="tarjeta-autor">
+            <span class="avatar avatar-azul">DB</span>
+            <div>
+                <p class="autor-nombre">Dani Bergman</p>
+                <p class="autor-movimiento">Kvutzá Erez</p>
+            </div>
+        </div>
+        <span class="etiqueta etiqueta-dinamicas">Para majané</span>
+        <h2 class="tarjeta-titulo"><a href="idea.html?id=debate-libertad">Debate: ¿qué es ser libre?</a></h2>
+        <p class="tarjeta-texto">Situaciones reales en tarjetas para debatir en grupos chicos, de noche, alrededor del fuego.</p>
+        <ul class="ficha">
+            <li>🧒 15 a 17 años</li>
+            <li>⏱️ 45 min</li>
+            <li>👥 20 a 40</li>
+            <li>🎒 1 material</li>
+        </ul>
+        <div class="tarjeta-acciones">
+            <span>♡ 36</span>
+            <span>💬 7</span>
+            <span>🔖 Guardar</span>
+        </div>
+    </article>
+
+    <p id="sin-resultados" class="aviso-vacio">Todavía no hay ideas de este tipo. ¡Publicá la primera!</p>
+
 </main>
 
-<nav class="barra-abajo">
+<nav class="barra-abajo" aria-label="Navegación principal">
     <a href="feed.html" class="barra-item">
-        <span class="barra-icono">🏠</span>
+        <span class="barra-icono" aria-hidden="true">🏠</span>
         <span>Inicio</span>
     </a>
-    <a href="explorar.html" class="barra-item activo">
-        <span class="barra-icono">🔍</span>
+    <a href="explorar.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">🔍</span>
         <span>Explorar</span>
     </a>
     <a href="publicar.html" class="barra-item barra-publicar">
-        <span class="barra-icono">＋</span>
+        <span class="barra-icono" aria-hidden="true">＋</span>
         <span>Publicar</span>
     </a>
     <a href="guardadas.html" class="barra-item">
-        <span class="barra-icono">🔖</span>
+        <span class="barra-icono" aria-hidden="true">🔖</span>
         <span>Guardadas</span>
     </a>
     <a href="mi-perfil.html" class="barra-item">
-        <span class="barra-icono">👤</span>
+        <span class="barra-icono" aria-hidden="true">👤</span>
         <span>Perfil</span>
     </a>
 </nav>
@@ -91,7 +130,9 @@
 <script>
     mostrarPublicaciones('dinamicas');
 </script>
+<script src="js/subcategorias.js"></script>
 <script src="js/guardar.js"></script>
 <script src="js/megusta.js"></script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>

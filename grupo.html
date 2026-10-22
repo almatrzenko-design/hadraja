@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu grupo-Hadraja</title>
+    <title>Tu grupo | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla">
 
-    <a href="registro.html" class="volver">← Volver</a>
-
     <h1 class="pantalla-titulo">Tu grupo</h1>
     <p class="pantalla-bajada">Contanos de tu grupo así te mostramos ideas que te sirvan.</p>
 
-    <form action="feed.html" class="formulario">
+    <form action="feed.html" class="formulario" id="form-grupo" novalidate>
 
         <label for="edad">Tu edad</label>
         <select id="edad">
-            <option>Elegí una opción</option>
+            <option value="">Elegí una opción</option>
             <option>15 a 17 años</option>
             <option>18 a 20 años</option>
             <option>21 o más</option>
@@ -30,7 +29,7 @@
 
         <label for="janijim">Edad de los janijim</label>
         <select id="janijim">
-            <option>Elegí una opción</option>
+            <option value="">Elegí una opción</option>
             <option>3 a 5 años</option>
             <option>6 a 8 años</option>
             <option>9 a 11 años</option>
@@ -38,10 +37,57 @@
             <option>15 a 17 años</option>
         </select>
 
+        <p id="error-grupo" class="error-login" role="alert"></p>
+
         <button type="submit" class="boton boton-principal">¡Empezar!</button>
 
     </form>
 
+    <p class="cambiar-cuenta"><a href="feed.html">Completarlo más tarde</a></p>
+
 </main>
+
+<script>
+    const formGrupo = document.getElementById('form-grupo');
+    const cartelError = document.getElementById('error-grupo');
+    const cuenta = cuentaActual();
+
+    // Si ya lo habías completado, aparece lo que pusiste
+    if (cuenta) {
+        document.getElementById('edad').value = cuenta.edad || '';
+        document.getElementById('grupo').value = cuenta.grupo || '';
+        document.getElementById('janijim').value = cuenta.janijim || '';
+    }
+
+    formGrupo.addEventListener('submit', function (evento) {
+        evento.preventDefault();
+
+        const grupo = document.getElementById('grupo').value.trim();
+        const janijim = document.getElementById('janijim').value;
+
+        let error = '';
+        if (grupo === '') {
+            error = 'Escribí el nombre de tu grupo.';
+        } else if (janijim === '') {
+            error = 'Elegí la edad de tus janijim.';
+        }
+
+        if (error !== '') {
+            cartelError.textContent = error;
+            cartelError.style.display = 'block';
+            cartelError.scrollIntoView({ block: 'center' });
+            return;
+        }
+
+        // Lo guardamos en TU cuenta
+        guardarCuenta({
+            edad: document.getElementById('edad').value,
+            grupo: grupo,
+            janijim: janijim
+        });
+
+        location.href = 'feed.html';
+    });
+</script>
 </body>
 </html>

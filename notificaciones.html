@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificaciones-Hadraja</title>
+    <title>Notificaciones | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
 <main class="pantalla con-barra">
@@ -14,70 +15,99 @@
 
     <h1 class="pantalla-titulo">Notificaciones</h1>
 
-    <button id="marcar-leidas" class="marcar-leidas">Marcar todas como leídas</button>
+    <button type="button" id="marcar-leidas" class="marcar-leidas">Marcar todas como leídas</button>
 
-    <h2 class="seccion-titulo">Hoy</h2>
+    <p id="sin-notificaciones" class="sin-seguidos">No tenés notificaciones. Cuando alguien comente, guarde o le dé me gusta a tus ideas, te vas a enterar acá.</p>
 
-    <div class="notificacion no-leida">
-        <span class="avatar avatar-chico">TL</span>
-        <p class="notificacion-texto"><strong>Tami Levy</strong> le dio me gusta a tu idea "Carrera de embolsados".</p>
-        <span class="notificacion-hora">2 h</span>
-    </div>
-
-    <div class="notificacion no-leida">
-        <span class="avatar avatar-chico avatar-azul">DB</span>
-        <p class="notificacion-texto"><strong>Dani Bergman</strong> comentó: "¡Me la llevo para el majané!"</p>
-        <span class="notificacion-hora">5 h</span>
-    </div>
-
-    <h2 class="seccion-titulo">Esta semana</h2>
-
-    <div class="notificacion">
-        <span class="avatar avatar-chico">NS</span>
-        <p class="notificacion-texto"><strong>Noa Schwartz</strong> empezó a seguirte.</p>
-        <span class="notificacion-hora">2 d</span>
-    </div>
-
-    <div class="notificacion">
-        <span class="avatar avatar-chico avatar-azul">MG</span>
-        <p class="notificacion-texto"><strong>Maia Goldberg</strong> guardó tu idea "Carrera de embolsados".</p>
-        <span class="notificacion-hora">4 d</span>
-    </div>
+    <div id="lista-notificaciones"></div>
 
 </main>
 
-<nav class="barra-abajo">
+<nav class="barra-abajo" aria-label="Navegación principal">
     <a href="feed.html" class="barra-item">
-        <span class="barra-icono">🏠</span>
+        <span class="barra-icono" aria-hidden="true">🏠</span>
         <span>Inicio</span>
     </a>
     <a href="explorar.html" class="barra-item">
-        <span class="barra-icono">🔍</span>
+        <span class="barra-icono" aria-hidden="true">🔍</span>
         <span>Explorar</span>
     </a>
     <a href="publicar.html" class="barra-item barra-publicar">
-        <span class="barra-icono">＋</span>
+        <span class="barra-icono" aria-hidden="true">＋</span>
         <span>Publicar</span>
     </a>
     <a href="guardadas.html" class="barra-item">
-        <span class="barra-icono">🔖</span>
+        <span class="barra-icono" aria-hidden="true">🔖</span>
         <span>Guardadas</span>
     </a>
-    <a href="mi-perfil.html" class="barra-item activo">
-        <span class="barra-icono">👤</span>
+    <a href="mi-perfil.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">👤</span>
         <span>Perfil</span>
     </a>
 </nav>
 
 <script>
-    const botonMarcar = document.getElementById('marcar-leidas');
+    const emailSesion = localStorage.getItem('sesion');
+    const lista = document.getElementById('lista-notificaciones');
 
-    botonMarcar.addEventListener('click', function () {
-        const noLeidas = document.querySelectorAll('.no-leida');
-        noLeidas.forEach(function (notificacion) {
-            notificacion.classList.remove('no-leida');
+    // Hace cuánto pasó: "recién", "hace 5 min", "hace 2 h", "hace 3 días"
+    function haceCuanto(fecha) {
+        const minutos = Math.round((Date.now() - fecha) / 60000);
+        if (minutos < 1) return 'recién';
+        if (minutos < 60) return 'hace ' + minutos + ' min';
+        const horas = Math.round(minutos / 60);
+        if (horas < 24) return 'hace ' + horas + ' h';
+        return 'hace ' + Math.round(horas / 24) + ' días';
+    }
+
+    function limpiarTexto(texto) {
+        return String(texto || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function dibujarNotificaciones() {
+        const todas = JSON.parse(localStorage.getItem('notificaciones')) || [];
+        // Solo las tuyas, la más nueva arriba
+        const mias = todas.filter(function (n) { return n.para === emailSesion; }).reverse();
+
+        document.getElementById('sin-notificaciones').style.display = mias.length === 0 ? 'block' : 'none';
+        document.getElementById('marcar-leidas').style.display = mias.some(function (n) { return !n.leida; }) ? 'block' : 'none';
+
+        lista.innerHTML = mias.map(function (n) {
+            return `
+                <a class="notificacion ${n.leida ? '' : 'no-leida'}" href="${limpiarTexto(n.link)}" data-fecha="${n.fecha}">
+                    <span class="avatar avatar-chico" aria-hidden="true">🔔</span>
+                    <p class="notificacion-texto">${limpiarTexto(n.texto)}</p>
+                    <span class="notificacion-hora">${haceCuanto(n.fecha)}</span>
+                </a>
+            `;
+        }).join('');
+    }
+
+    // Marca como leídas: todas, o solo la de esa fecha
+    function marcarLeidas(fecha) {
+        const todas = JSON.parse(localStorage.getItem('notificaciones')) || [];
+        todas.forEach(function (n) {
+            if (n.para === emailSesion && (fecha === undefined || n.fecha === fecha)) {
+                n.leida = true;
+            }
         });
+        localStorage.setItem('notificaciones', JSON.stringify(todas));
+    }
+
+    // Al tocar una, se marca como leída (y el link sigue su camino)
+    lista.addEventListener('click', function (evento) {
+        const notificacion = evento.target.closest('.notificacion');
+        if (notificacion) {
+            marcarLeidas(Number(notificacion.dataset.fecha));
+        }
     });
+
+    document.getElementById('marcar-leidas').addEventListener('click', function () {
+        marcarLeidas();
+        dibujarNotificaciones();
+    });
+
+    dibujarNotificaciones();
 </script>
 </body>
 </html>

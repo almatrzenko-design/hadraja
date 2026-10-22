@@ -3,59 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idea-Hadraja</title>
+    <title>Idea | Hadrajá</title>
+    <meta name="description" content="Hadrajá: ideas para madrijim, por madrijim.">
     <link rel="stylesheet" href="css/style.css">
-    
+    <script src="js/sesion.js"></script>
 </head>
 <body>
- <main class="pantalla">
+<main class="pantalla con-barra" id="detalle">
+</main>
 
-    <a href="feed.html" class="volver">← Volver</a>
+<nav class="barra-abajo" aria-label="Navegación principal">
+    <a href="feed.html" class="barra-item">
+        <span class="barra-icono" aria-hidden="true">🏠</span>
+        <span>Inicio</span>
+    </a>
+    <a href="explorar.html" class="barra-item activo" aria-current="page">
+        <span class="barra-icono" aria-hidden="true">🔍</span>
+        <span>Explorar</span>
+    </a>
+    <a href="publicar.html" class="barra-item barra-publicar">
+        <span class="barra-icono" aria-hidden="true">＋</span>
+        <span>Publicar</span>
+    </a>
+    <a href="guardadas.html" class="barra-item">
+        <span class="barra-icono" aria-hidden="true">🔖</span>
+        <span>Guardadas</span>
+    </a>
+    <a href="mi-perfil.html" class="barra-item">
+        <span class="barra-icono" aria-hidden="true">👤</span>
+        <span>Perfil</span>
+    </a>
+</nav>
 
-    <div class="tarjeta-autor">
-        <span class="avatar avatar-azul">DB</span>
-        <div>
-            <p class="autor-nombre">Dani Bergman</p>
-            <p class="autor-movimiento">Kvutzá Erez</p>
-        </div>
-    </div>
+<script src="js/ejemplos.js"></script>
+<script src="js/publicaciones.js"></script>
+<script>
+    // ===== Mostrar la idea elegida (idea.html?id=...) =====
+    const parametros = new URLSearchParams(location.search);
+    const idElegida = parametros.get('id') || 'majane-pesaj';
+    const idea = buscarIdea(idElegida);
+    const detalle = document.getElementById('detalle');
 
-    <span class="etiqueta etiqueta-hilos">Hilos conductores</span>
-    <span class="etiqueta etiqueta-borde">Majané</span>
+    if (!idea) {
+        detalle.innerHTML = `
+            <a href="feed.html" class="volver">← Inicio</a>
+            <h1 class="pantalla-titulo">No encontramos esta idea</h1>
+            <p class="detalle-texto">Puede que la hayan borrado.</p>
+        `;
+    } else {
+        const cat = categorias[idea.categoria];
 
-    <h1 class="pantalla-titulo">Majané de Pesaj</h1>
+        // Materiales: una lista, o "no necesita" si está vacía
+        let materiales = '<p class="detalle-texto">No necesita materiales. ¡Solo ganas!</p>';
+        if (idea.materiales && idea.materiales.length > 0) {
+            materiales = '<ul class="lista-materiales">' +
+                idea.materiales.map(function (m) { return '<li>' + limpiar(m) + '</li>'; }).join('') +
+                '</ul>';
+        }
 
-    <p class="detalle-texto">Un programa de tres días sobre la libertad. Cada actividad trabaja una parte de la historia de Pesaj y la conecta con la vida de los janijim hoy.</p>
+        // Pasos: una lista numerada con circulitos
+        let pasos = '';
+        if (idea.pasos && idea.pasos.length > 0) {
+            pasos = '<h2 class="seccion-titulo">Paso a paso</h2><ol class="actividades">' +
+                idea.pasos.map(function (paso, numero) {
+                    return '<li class="actividad"><span class="actividad-numero">' + (numero + 1) + '</span>' +
+                        '<p>' + limpiar(paso) + '</p></li>';
+                }).join('') +
+                '</ol>';
+        }
 
-    <h2 class="seccion-titulo">Actividades del programa</h2>
+        // Las subcategorías, como cartelitos con borde
+        const subcategorias = (idea.subcategorias || []).map(function (sub) {
+            return '<span class="etiqueta etiqueta-borde">' + limpiar(sub) + '</span>';
+        }).join(' ');
 
-    <ol class="actividades">
-        <li class="actividad">
-            <span class="actividad-numero">1</span>
-            <div>
-                <p class="actividad-nombre">Juego de bienvenida</p>
-                <p class="actividad-texto">Rompehielos para armar los equipos del majané.</p>
+        detalle.innerHTML = `
+            <a href="feed.html" class="volver" onclick="if (history.length > 1) { history.back(); return false; }">← Volver</a>
+
+            <div class="tarjeta-autor">
+                <span class="avatar">${limpiar(iniciales(idea.autor))}</span>
+                <div>
+                    <p class="autor-nombre">${limpiar(idea.autor)}</p>
+                    <p class="autor-movimiento">${limpiar(idea.comunidad || 'Idea nueva')}</p>
+                </div>
             </div>
-        </li>
-        <li class="actividad">
-            <span class="actividad-numero">2</span>
-            <div>
-                <p class="actividad-nombre">Peulá: ¿qué es ser libre?</p>
-                <p class="actividad-texto">Debate en grupos chicos a partir de situaciones reales.</p>
-            </div>
-        </li>
-        <li class="actividad">
-            <span class="actividad-numero">3</span>
-            <div>
-                <p class="actividad-nombre">Seder creativo</p>
-                <p class="actividad-texto">Cada equipo prepara una parte del seder a su manera.</p>
-            </div>
-        </li>
-    </ol>
 
-    <div class="tarjeta-acciones detalle-acciones">
-        <span>♡ 51</span>
-        <span>💬 12</span>
-        <span>🔖 Guardar</span>   
+            <span class="etiqueta ${cat.etiqueta}">${cat.nombre}</span>
+            ${subcategorias}
+
+            <h1 class="pantalla-titulo detalle-titulo">${limpiar(idea.titulo)}</h1>
+            <p class="detalle-texto">${limpiar(idea.descripcion)}</p>
+
+            ${armarFicha(idea)}
+
+            <button type="button" class="boton boton-secundario boton-comentar"
+                data-titulo="${limpiar(idea.titulo)}" data-email="${limpiar(idea.email)}"
+                data-id="${limpiar(idea.id)}" data-base="${idea.comentarios || 0}">💬 ${idea.comentarios || 0}</button>
+
+            <h2 class="seccion-titulo">Materiales</h2>
+            ${materiales}
+
+            ${pasos}
+        `;
+
+        document.title = idea.titulo + ' | Hadrajá';
+    }
+</script>
+<script src="js/comentarios.js"></script>
 </body>
 </html>
